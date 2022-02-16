@@ -15,11 +15,22 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_border[]      = "#7fe0ee";
-static const char col_cyan[]        = "#6d5369";
+static const char col_cyan[]        = "#5b253d";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_border },
+};
+
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = { TERMINAL, "--class", "spterm", \
+	"-o", "window.dimensions.columns=90", "-o", "window.dimensions.lines=25", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
 };
 
 /* tagging */
@@ -30,8 +41,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",	  NULL,			NULL,		0,				1,			 -1 },
-	{ "Firefox",  NULL,			NULL,		1 << 8,			0,			 -1 },
+	{ "Gimp",	   NULL,			NULL,		0,				1,			 -1 },
+	{ "Firefox",   NULL,			NULL,		1 << 8,			0,			 -1 },
+	{ "Alacritty", "spterm",		NULL,		SPTAG(0),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -44,8 +56,10 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
+
 	{ "[M]",      monocle },
 	{ "|C|",      centeredmaster },
+
 	{ "TTT",      bstack },
 	{ NULL,       NULL },
 	//{ ">M>",      centeredfloatingmaster },
@@ -105,6 +119,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Return, togglescratch,  {.ui = 0 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
