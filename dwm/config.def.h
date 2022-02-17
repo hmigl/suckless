@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 #define TERMINAL "alacritty"
+#define TERMCLASS "Alacritty"
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -40,14 +41,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
+	/* class      instance         title       tags mask     isfloating   monitor */
 	{ "Gimp",	   NULL,			NULL,		0,				1,			 -1 },
 	{ "Firefox",   NULL,			NULL,		1 << 8,			0,			 -1 },
-	{ "Alacritty", "spterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ TERMCLASS,   "spterm",		NULL,		SPTAG(0),		1,			 -1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.53; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.54; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
