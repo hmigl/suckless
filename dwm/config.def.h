@@ -5,7 +5,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 2;        /* gaps between windows */
+static const unsigned int gappx     = 1;        /* gaps between windows */
 static const unsigned int snap      = 16;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -28,7 +28,7 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = { TERMINAL, "--class", "spterm", \
-	"-o", "window.dimensions.columns=90", "-o", "window.dimensions.lines=25", NULL };
+	"-o", "window.dimensions.columns=90", "-o", "window.dimensions.lines=27", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
@@ -107,16 +107,17 @@ static Key keys[] = {
 	{ ALTKEY,                       XK_m,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_i,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[0]} }, // tile
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[1]} }, // float
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[2]} }, // monocle
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[3]} }, // deck
+	{ MODKEY,                       XK_i,      setlayout,      {.v = &layouts[4]} }, // centeredmaster
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[5]} }, // bstack
 	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	//{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	//{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
